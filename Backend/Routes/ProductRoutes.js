@@ -29,5 +29,16 @@ router.post("/products", async (req,res) =>{
         res.status(500).json({message: error.message})
     }
 })
-
+router.delete("/products/:id", async (req,res) =>{
+    const {id} = req.params;    
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(id);
+        if (!deletedProduct) {
+            return res.status(404).json({message: "Product not found"});
+        }
+        res.status(200).json({message: "Product deleted successfully"});
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
 export default router;

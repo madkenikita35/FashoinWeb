@@ -5,6 +5,7 @@ import Product from './models/ProducModel.js';
 import productRoutes from './Routes/ProductRoutes.js';
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = "mongodb+srv://Nikita:Nikita@fashionweb.uynbc7u.mongodb.net/?appName=FashionWeb";
 
@@ -23,7 +24,7 @@ async function connectToDatabase() {
 connectToDatabase();
 
 app.use(express.json());
-app.use(cors());
+
 app.use("/", productRoutes);
 
 app.get("/", (req,res) =>{
