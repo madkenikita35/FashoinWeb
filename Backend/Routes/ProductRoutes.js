@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const router = express.Router();
 
-router.get("./products", async(req, res) => {
+router.get("/products", async(req, res) => {
     try {
         const products = await Product.find();
         res.status(200).json(products)    }
@@ -13,19 +13,18 @@ router.get("./products", async(req, res) => {
     }
 })
 
-router.post("./products", async (req,res) =>{
-    const {PrName, PrPrice, prImg} = req.body;
+router.post("/products", async (req,res) =>{
+    const {PrName, PrPrice, PrImg} = req.body;
     try {
-        if(!PrName || !prImg || !PrPrice){
+        if(!PrName || !PrImg || !PrPrice){
             return res.status(400).json({message: "All fields are required"});
         }
-        const product = new Product({
+        const product = await Product.create({
             PrName,
             PrPrice,
-            prImg
+            PrImg
         })
-        product.save();
-        res.status(200).json(product);
+        res.status(201).json(product);
     } catch (error) {
         res.status(500).json({message: error.message})
     }
