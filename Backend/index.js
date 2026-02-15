@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import Product from './models/ProducModel.js';
+import productRoutes from './Routes/ProductRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,6 +22,7 @@ async function connectToDatabase() {
 connectToDatabase();
 
 app.use(express.json());
+app.use("/", productRoutes);
 
 app.get("/", (req,res) =>{
     console.log("Hello World");
